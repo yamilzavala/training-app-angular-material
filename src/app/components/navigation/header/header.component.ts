@@ -7,7 +7,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  @Output() toggleSideNavPanel = new EventEmitter<void>;
+  @Output() toggleSideNavPanel = new EventEmitter<void>();
 
   constructor() { }
 

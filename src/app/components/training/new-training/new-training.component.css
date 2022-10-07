@@ -1,0 +1,14 @@
+mat-card {
+    flex-basis: 400px;
+    height: 300px;
+    margin: 30px 0px;
+    padding: 10px;
+}
+
+mat-card-content {
+    margin-bottom: 0px;
+}
+
+mat-card-header {
+    margin-bottom: 20px;
+}
