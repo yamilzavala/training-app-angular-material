@@ -8,9 +8,9 @@
     <span class="logo" routerLink="/">Logo</span>
 
     <nav fxFlex fxLayoutAlign="flex-end" fxLayout fxHide.xs>
-        <button mat-button routerLink="/signup">SignUp</button>
-        <button mat-button routerLink="/login">Login</button>
-        <button mat-button routerLink="/training">Training</button>
-        <button mat-button routerLink="/">Logout</button>
+        <button *ngIf="!isAutenticathed" mat-button routerLink="/signup">SignUp</button>
+        <button *ngIf="!isAutenticathed" mat-button routerLink="/login">Login</button>
+        <button *ngIf="isAutenticathed" mat-button routerLink="/training">Training</button>
+        <button *ngIf="isAutenticathed" mat-button routerLink="/" (click)="logout()">Logout</button>
     </nav>                  
 </mat-toolbar>
