@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 export class TrainingComponent implements OnInit, OnDestroy {
   showCurrentTraining = false;
   exerciseSubscription = new Subscription();
-
+  
   constructor(private trainingService: TrainingService) {
   }
 

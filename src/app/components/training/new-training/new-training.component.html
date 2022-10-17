@@ -5,7 +5,7 @@
         <mat-card-content>
             <mat-form-field appearance="fill">
                 <mat-label>Select a type of training</mat-label>
-                <mat-select ngModel name="exersice" required>
+                <mat-select ngModel name="exercise" required>
                   <mat-option *ngFor="let exercise of exercises" [value]="exercise.id">
                     {{exercise.name}}
                   </mat-option>

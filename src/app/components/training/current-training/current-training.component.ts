@@ -1,6 +1,10 @@
 import { Component, OnInit,EventEmitter, Output } from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
+import { TrainingService } from '../training.service';
 import { StopComponent } from './stop-training.component';
+import { Subscription } from 'rxjs'
+import { Exercise } from '../exercise.model';
+import { SubsHelper } from '../../../helpers/subscriptions'
 
 @Component({
   selector: 'app-current-training',
@@ -11,19 +15,28 @@ export class CurrentTrainingComponent implements OnInit {
   @Output() trainingExit = new EventEmitter();
   progress = 10;
   timer: any;
-  constructor(private dialog: MatDialog) { }
+  subscriptionTraining = new Subscription();
+  currentExercise: Exercise = {id: '', name: '', duration: 0, calories: 0};
+  subscriptions = new SubsHelper();
+
+  constructor(private dialog: MatDialog,
+              private trainingService: TrainingService) { }
 
   ngOnInit(): void {
-    this.startOrResumeTraining()
+    this.startOrResumeTraining();
   }
 
   startOrResumeTraining() {
+    const step = this.trainingService.getRunningExercise().duration / 100 * 1000;
+    console.log(this.trainingService.getRunningExercise().duration);
+    
     this.timer = setInterval(() => {
-      this.progress = this.progress + 10;
+      this.progress = this.progress + 1;
       if (this.progress >= 100) {
+        this.trainingService.completeExercise()
         clearInterval(this.timer);
       }
-    }, 300)
+    }, step)
   }
 
   openDialog(){
@@ -34,9 +47,9 @@ export class CurrentTrainingComponent implements OnInit {
       }
     })
 
-    dialogRef.afterClosed().subscribe(result => {     
+    dialogRef.afterClosed().subscribe(result => {
         if(result) {
-          this.trainingExit.emit()  
+          this.trainingService.cancelExercise(this.progress)
         } else {
           this.startOrResumeTraining()
         }
@@ -47,5 +60,4 @@ export class CurrentTrainingComponent implements OnInit {
       clearInterval(this.timer);
       this.openDialog();
   }
-
 }
