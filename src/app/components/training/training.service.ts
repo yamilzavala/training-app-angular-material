@@ -11,7 +11,7 @@ export class TrainingService {
     ];
 
     emptyExercise: Exercise = {id: '', name: '', duration: 0, calories: 0};
-    exercises: Exercise[] = [];
+    private exercises: Exercise[] = [];
     exerciseChange = new Subject<any>();
     private runningExercise: Exercise = {...this.emptyExercise};
 
@@ -52,6 +52,10 @@ export class TrainingService {
 
     getRunningExercise(): Exercise {
         return {...this.runningExercise}
+    }
+
+    getPastExercises(): Exercise[] {
+        return [...this.exercises]
     }
 
 }
