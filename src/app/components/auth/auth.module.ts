@@ -3,6 +3,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { MaterialModule } from "src/app/material.module";
+import { SharedModule } from "../shared/shared.module";
 import { LoginComponent } from "./login/login.component";
 import { SignupComponent } from "./signup/signup.component";
 
@@ -11,12 +12,9 @@ import { SignupComponent } from "./signup/signup.component";
         SignupComponent,
         LoginComponent,
     ],
-    imports: [
-        FormsModule,
+    imports: [        
         ReactiveFormsModule,
-        FlexLayoutModule,
-        MaterialModule,
-        BrowserModule,
+        SharedModule       
     ], 
     exports: []
 })
