@@ -6,7 +6,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { UIService } from '../../shared/ui.service';
+import { SnackbarI, UIService } from '../../shared/ui.service';
 
 
 @Component({
@@ -16,8 +16,8 @@ import { UIService } from '../../shared/ui.service';
 })
 export class NewTrainingComponent implements OnInit {
   
-  // exercises: Observable<any>;
-  exercises: Exercise[];
+  // exercises: Exercise[];
+  exercises: any;
   isLoading = false;
   loadingSub: Subscription;
   
@@ -27,14 +27,26 @@ export class NewTrainingComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.loadingSub = this.uiService.loadingStateChange.subscribe(loading => {
+    this.loadingSub = this.uiService.loadingStateChange
+    .subscribe(loading => {
       this.isLoading = loading;
     })
-
-    this.exercises = this.trainingService.getExercises();  
+    this.fetchData();
   }
 
   startTraining(form: NgForm) {
    this.trainingService.startExercise(form.value.exercise)
+  }
+
+  fetchData() {
+    this.exercises = this.trainingService.getExercises();
+    if (!this.exercises) {
+      const snackbar: SnackbarI = {
+        message: 'Error to load exercises... Try to fetch again since the botton above',
+        action: undefined,
+        duration: 5000 
+      }
+    this.uiService.createSnackbar(snackbar);
+    } 
   }
 }

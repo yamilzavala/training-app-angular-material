@@ -5,6 +5,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { UIService } from "../shared/ui.service";
 
+
 @Injectable()
 export class TrainingService {
   
@@ -15,6 +16,8 @@ export class TrainingService {
         { id: 'burpees', name: 'Burpees', duration: 60, calories: 8 }
     ];
 
+    availableExercises$: Subject<any>;
+
 
     emptyExercise: Exercise = {id: '', name: '', duration: 0, calories: 0};
     private exercises: Exercise[] = [];
@@ -23,12 +26,13 @@ export class TrainingService {
 
     constructor(private uiService: UIService){}
 
-    getExercises() {
+    getExercises(){
        this.uiService.loadingStateChange.next(true)
        setTimeout(() => {
         this.uiService.loadingStateChange.next(false)  
       },3000)
-       return [...this.availableExercises]
+    //    return [...this.availableExercises]
+       return null
     } 
 
     startExercise(selectedExercise: string) {
