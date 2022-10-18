@@ -4,12 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { SignupComponent } from './components/auth/signup/signup.component';
-import { LoginComponent } from './components/auth/login/login.component';
-import { TrainingComponent } from './components/training/training.component';
-import { CurrentTrainingComponent } from './components/training/current-training/current-training.component';
-import { NewTrainingComponent } from './components/training/new-training/new-training.component';
-import { PastTrainingComponent } from './components/training/past-training/past-training.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { AppRoutingModule } from './app.routing.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -25,20 +19,15 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { UIService } from './components/shared/ui.service';
+import { AuthModule } from './components/auth/auth.module';
+import { TrainingModule } from './components/training/training.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    SignupComponent,
-    LoginComponent,
-    TrainingComponent,
-    CurrentTrainingComponent,
-    NewTrainingComponent,
-    PastTrainingComponent,
+    AppComponent,    
     WelcomeComponent,
     HeaderComponent,
-    SidenavListComponent,
-    StopComponent
+    SidenavListComponent,   
   ],
   imports: [
     BrowserModule,
@@ -50,6 +39,8 @@ import { UIService } from './components/shared/ui.service';
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AuthModule,
+    TrainingModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore())
   ],

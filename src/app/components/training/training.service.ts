@@ -31,8 +31,8 @@ export class TrainingService {
        setTimeout(() => {
         this.uiService.loadingStateChange.next(false)  
       },3000)
-    //    return [...this.availableExercises]
-       return null
+        return [...this.availableExercises]
+    //    return null
     } 
 
     startExercise(selectedExercise: string) {

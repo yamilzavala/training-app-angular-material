@@ -16,8 +16,8 @@ import { SnackbarI, UIService } from '../../shared/ui.service';
 })
 export class NewTrainingComponent implements OnInit {
   
-  // exercises: Exercise[];
-  exercises: any;
+  //exercises: any;
+  exercises: Exercise[];
   isLoading = false;
   loadingSub: Subscription;
   
