@@ -3,13 +3,16 @@ import {User} from './user.model'
 import { Subject } from 'rxjs';
 import {Router} from '@angular/router';
 import { Injectable } from '@angular/core';
+// import {MatSnackBar} from '@angular/material/snack-bar';
+import { SnackbarI, UIService } from '../shared/ui.service';
 
 @Injectable()
 export class AuthService {
     autenticathed = new Subject<boolean>();
     private user: User = {email: '', userId:''};
 
-    constructor(private router: Router){
+    constructor(private router: Router,  
+                private uiService: UIService){
 
     }
 
@@ -18,7 +21,15 @@ export class AuthService {
             email: authData.email,
             userId: Math.round(Math.random() * 1000).toString()
         }
-        this.loginSeccess()
+        this.uiService.loadingStateChange.next(true)
+        if(authData.email === 'test@gmail.com' && authData.password == '123') {
+            //to simulate loading
+            setTimeout(() => {
+                this.loginSuccess()
+            }, 3000)            
+        } else {
+            this.openSnackBar()
+        }
     }
 
     login(authData: AuthData) {
@@ -26,7 +37,16 @@ export class AuthService {
             email: authData.email,
             userId: Math.round(Math.random() * 1000).toString()
         }
-       this.loginSeccess()
+        this.uiService.loadingStateChange.next(true)
+        if(authData.email === 'test@gmail.com' && authData.password == '123') {
+            //to simulate loading            
+            setTimeout(() => {
+                this.loginSuccess()
+            }, 3000)            
+        } else {            
+            this.openSnackBar()
+        }
+
     }
 
     logout() {
@@ -43,10 +63,20 @@ export class AuthService {
         return this.user.email != '' && this.user.userId != ''
     }
 
-    loginSeccess() {
+    loginSuccess() {      
+        this.uiService.loadingStateChange.next(false)  
         this.autenticathed.next(true);
         this.router.navigate(['/training'])
     }
 
-
+    openSnackBar() {
+        this.uiService.loadingStateChange.next(false)
+        const snackbar: SnackbarI = {
+                message: 'Not allow to access! - Enter: Email: test@gmail.com- Pass: 123',
+                action: undefined,
+                duration: 5000 
+        }
+        this.uiService.createSnackbar(snackbar);
+      }
 }
+  export class OutputPanal {}

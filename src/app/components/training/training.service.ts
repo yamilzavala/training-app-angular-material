@@ -1,6 +1,11 @@
 import { Exercise } from "./exercise.model";
 import { Subject } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Injectable } from "@angular/core";
+import { Observable } from 'rxjs';
+import { UIService } from "../shared/ui.service";
 
+@Injectable()
 export class TrainingService {
   
     private availableExercises: Exercise[] = [
@@ -10,13 +15,20 @@ export class TrainingService {
         { id: 'burpees', name: 'Burpees', duration: 60, calories: 8 }
     ];
 
+
     emptyExercise: Exercise = {id: '', name: '', duration: 0, calories: 0};
     private exercises: Exercise[] = [];
     exerciseChange = new Subject<any>();
     private runningExercise: Exercise = {...this.emptyExercise};
 
+    constructor(private uiService: UIService){}
+
     getExercises() {
-        return [...this.availableExercises]
+       this.uiService.loadingStateChange.next(true)
+       setTimeout(() => {
+        this.uiService.loadingStateChange.next(false)  
+      },3000)
+       return [...this.availableExercises]
     } 
 
     startExercise(selectedExercise: string) {
