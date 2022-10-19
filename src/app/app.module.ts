@@ -20,7 +20,6 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { UIService } from './components/shared/ui.service';
 import { AuthModule } from './components/auth/auth.module';
-import { TrainingModule } from './components/training/training.module';
 
 @NgModule({
   declarations: [
@@ -40,7 +39,6 @@ import { TrainingModule } from './components/training/training.module';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AuthModule,
-    TrainingModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore())
   ],

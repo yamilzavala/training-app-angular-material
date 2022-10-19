@@ -1,7 +1,7 @@
+import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule } from "@angular/forms";
-import { BrowserModule } from "@angular/platform-browser";
 import { MaterialModule } from "src/app/material.module";
 
 @NgModule({
@@ -9,12 +9,12 @@ import { MaterialModule } from "src/app/material.module";
         FormsModule,
         FlexLayoutModule,
         MaterialModule,
-        BrowserModule,],
+        CommonModule,],
     exports: [
         FormsModule,
         FlexLayoutModule,
         MaterialModule,
-        BrowserModule,
+        CommonModule,
     ],
 })
 export class SharedModule {
